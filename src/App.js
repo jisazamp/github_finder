@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import Navbar from './components/layout/Navbar';
 import Users from './components/users/Users';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
-  foo = () => 'Bars';
+  state = {
+    users: [],
+    loading: false,
+  };
+  async componentDidMount() {
+    this.setState({ loading: true });
+    // axios se comporta como una Promise
+    const { data } = await axios.get('https://api.github.com/users');
+
+    this.setState({ users: data, loading: false });
+  }
   // Método del Lifecycle de React render()
   render() {
     return (
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Users />
+          <Users loading={this.state.loading} users={this.state.users} />
         </div>
-        <h1>Hello</h1>
       </div>
     );
   }
