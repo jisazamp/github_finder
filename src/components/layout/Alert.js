@@ -5,7 +5,7 @@ const Alert = ({ alert, closeAlert }) => {
   return (
     alert !== null && (
       <div className={`alert alert-${alert.type}`}>
-        <i className='fas fa-info-circle'></i> {alert.msg}
+        <i className='fas fa-info-circle fa-lg'></i> {alert.msg}
         <button
           className='fas fa-times fa-lg'
           style={{
