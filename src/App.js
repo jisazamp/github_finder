@@ -10,6 +10,7 @@ class App extends Component {
     users: [],
     loading: false,
   };
+
   async componentDidMount() {
     this.setState({ loading: true });
     // axios se comporta como una Promise
@@ -20,14 +21,38 @@ class App extends Component {
 
     this.setState({ users: data, loading: false });
   }
+
+  // Buscar usuarios de GitHub
+  searchUsers = async (text) => {
+    this.setState({ loading: true });
+
+    const res = await axios.get(
+      `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
+      client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+
+    this.setState({ users: res.data.items, loading: false });
+  };
+
+  clearUsers = async () => {
+    if (this.state.users.length === 0) return;
+    this.setState({ users: [], loading: false });
+  };
+
   // Método del Lifecycle de React render()
   render() {
+    const { loading, users } = this.state;
+
     return (
       <div className='App'>
         <Navbar />
         <div className='container'>
-          <Search />
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search
+            clearUsers={this.clearUsers}
+            searchUsers={this.searchUsers}
+            showClear={users.length > 0 ? true : false}
+          />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     );

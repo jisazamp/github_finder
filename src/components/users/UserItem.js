@@ -18,7 +18,7 @@ const UserItem = ({ user: { avatar_url, login, html_url } }) => {
           rel='noreferrer'
           className='btn btn-dark btn-sm my-1'
         >
-          More
+          Más
         </a>
       </div>
     </div>
