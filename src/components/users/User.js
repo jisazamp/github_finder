@@ -41,6 +41,7 @@ class User extends Component {
 
     return (
       <Fragment>
+        {/* Menú superior */}
         <Link to='/' className='btn btn-light'>
           Volver
         </Link>
@@ -50,6 +51,7 @@ class User extends Component {
         ) : (
           <i className='fas fa-times-circle text-danger' />
         )}
+        {/* Inicio carta con información del usuario */}
         <div className='card grid-2'>
           <div className='all-center'>
             <img
@@ -101,6 +103,8 @@ class User extends Component {
             </ul>
           </div>
         </div>
+        {/* Fin carta del usuario */}
+        {/* Carta con información de seguidores y repositorios públicos */}
         <div className='card text-center'>
           <div className='badge badge-primary'>Seguidores: {followers}</div>
           <div className='badge badge-success'>Siguiendo: {following}</div>
@@ -109,6 +113,7 @@ class User extends Component {
           </div>
           <div className='badge badge-dark'>Gists Públicos: {public_gists}</div>
         </div>
+        {/* Lista de los últimos cinco repositorios */}
         <Repos repos={repos} />
       </Fragment>
     );

@@ -10,6 +10,7 @@ import axios from 'axios';
 import './App.css';
 
 class App extends Component {
+  // Estado
   state = {
     users: [],
     user: {},
@@ -18,9 +19,11 @@ class App extends Component {
     repos: [],
   };
 
+  // Método del Lifecycle, lo hacemos asíncrono para hacer uso de axios, que es una promesa
+  // en este caso lo usamos para cargar 30 usuarios por defecto. async await
   async componentDidMount() {
     this.setState({ loading: true });
-    // axios se comporta como una Promise
+
     const { data } = await axios.get(
       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&
       client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
@@ -66,20 +69,29 @@ class App extends Component {
     this.setState({ repos: res.data, loading: false });
   };
 
+  // Trigger del botón de borrar que limpia todos los usuarios que hay en pantalla
   clearUsers = async () => {
     if (this.state.users.length === 0) return;
     this.setState({ users: [], loading: false });
   };
 
+  // Método que muestra una alerta cuando no se ingresa nada en el campo de búsqueda.
   setAlert = (msg, type) => {
     this.setState({ alert: { msg, type } });
+    // Usamos setTimeout() para mostrar la alerta durante 5 segundos
     setTimeout(() => {
       this.setState({ alert: null });
     }, 5000);
   };
 
-  // Método del Lifecycle de React render()
+  // Trigger que cierra el Alert
+  closeAlert = () => {
+    this.setState({ alert: null });
+  };
+
+  // Método del Lifecycle de React render(), es el único obligatorio.
   render() {
+    // Desestructuración del estado
     const { loading, users, user, repos } = this.state;
 
     return (
@@ -87,7 +99,7 @@ class App extends Component {
         <div className='App'>
           <Navbar />
           <div className='container'>
-            <Alert alert={this.state.alert} />
+            <Alert alert={this.state.alert} closeAlert={this.closeAlert} />
             <Switch>
               <Route
                 exact
