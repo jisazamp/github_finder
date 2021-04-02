@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
+const Search = ({ searchUsers, showClear, clearUsers, alertSet }) => {
   const [text, setText] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (text === '') {
-      setAlert('Por favor ingrese algún usuario', 'light');
+      alertSet('Por favor ingrese algún usuario', 'light');
     } else {
       searchUsers(text);
       setText('');
@@ -49,7 +49,7 @@ Search.propTypes = {
   searchUsers: PropTypes.func.isRequired,
   clearUsers: PropTypes.func.isRequired,
   showClear: PropTypes.bool.isRequired,
-  setAlert: PropTypes.func.isRequired,
+  alertSet: PropTypes.func.isRequired,
 };
 
 export default Search;
