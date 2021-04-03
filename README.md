@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deploy of the website is available on [Netlify](https://awesome-swirles-a1a0db.netlify.app/)
 
 ## Available Scripts
 
